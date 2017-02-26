@@ -1,0 +1,30 @@
+package ru.selenide.gmail.rules;
+
+import ru.selenide.gmail.utils.ScreenShotUtil;
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
+
+/**
+ * Created by Sidelnikov Mikhail on 30.07.15.
+ * This class represent rule - junit mechanism for adding awesome functionality in test running process.
+ * This rule adds screenshot taking when test  fails
+ */
+public class ScreenShotOnFailRule implements TestRule {
+
+    @Override
+    public Statement apply(final Statement base, final Description description) {
+        return new Statement() {
+
+            @Override
+            public void evaluate() throws Throwable {
+                try {
+                    base.evaluate();
+                } catch (Throwable t) {
+                    ScreenShotUtil.takeScreenShot();
+                    throw t;
+                }
+            }
+        };
+    }
+}
