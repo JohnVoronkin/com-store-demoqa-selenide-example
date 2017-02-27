@@ -1,5 +1,6 @@
 package ru.selenide.gmail.tests;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import ru.selenide.gmail.BaseTest;
@@ -12,13 +13,20 @@ import static org.junit.Assert.assertTrue;
 
 public class GmailTest extends BaseTest {
 
+    private GmailHomePage gmailHomePage;
+
     @Rule
     public ScreenShotOnFailRule screenShotOnFailRule = new ScreenShotOnFailRule();
 
+    @Before
+    public void alwaysGoToLoginPage() {
+        gmailHomePage = new GmailHomePage();
+        open("/");
+    }
+
     @Test
-    public void testSearch() {
-        GmailHomePage gmailHomePage = open("https://www.google.com/intl/ru/gmail/about/", GmailHomePage.class);
-        assertTrue("Отображение кнопок - Создать аккаунт, Войти на дом. странице", gmailHomePage.hasResults());
+    public void validityLogInToYourAccount() {
+        assertTrue("Check the page load", gmailHomePage.isPageLoaded());
     }
 
 }
