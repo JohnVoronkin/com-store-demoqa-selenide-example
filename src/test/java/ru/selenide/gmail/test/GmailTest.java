@@ -1,4 +1,4 @@
-package ru.selenide.gmail.tests;
+package ru.selenide.gmail.test;
 
 import org.junit.Before;
 import org.junit.Rule;
