@@ -1,16 +1,22 @@
 package ru.selenide.gmail;
 
 import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.junit.TextReport;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.EdgeDriverManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
 
 import static com.codeborne.selenide.Configuration.baseUrl;
 import static ru.selenide.gmail.utils.PropertiesReader.loadProperty;
 
 public abstract class BaseTest {
+
+    @Rule
+    public TestRule report = new TextReport().onFailedTest(true).onSucceededTest(true);
 
     @BeforeClass
     public static void beforeTestRunSetup() throws Exception {
@@ -18,14 +24,13 @@ public abstract class BaseTest {
         baseUrl = loadProperty("URL");
     }
 
-
     /**
      * Instance browser by name
      *
      * @param browser name browser
      * @throws Exception
      */
-    public static void setDriverByName(String browser) throws Exception {
+    private static void setDriverByName(String browser) throws Exception {
         switch (browser) {
             case "gecko":
                 Configuration.browser = "gecko";

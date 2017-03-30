@@ -9,6 +9,7 @@ import ru.selenide.gmail.rules.ScreenShotOnFailRule;
 
 import static com.codeborne.selenide.Selenide.open;
 import static org.junit.Assert.assertTrue;
+import static ru.selenide.gmail.utils.DataRandomTest.randomEmail;
 
 
 public class GmailTest extends BaseTest {
@@ -26,7 +27,8 @@ public class GmailTest extends BaseTest {
 
     @Test
     public void validityLogInToYourAccount() {
-        assertTrue("Check the page load", gmailHomePage.isPageLoaded());
+        gmailHomePage.signInAccountsGoogle()
+                .fillTheEmail(randomEmail());
     }
 
 }

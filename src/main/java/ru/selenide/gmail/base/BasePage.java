@@ -1,10 +1,12 @@
 package ru.selenide.gmail.base;
 
 
-import static com.codeborne.selenide.Configuration.baseUrl;
+import com.codeborne.selenide.SelenideElement;
+
 import static com.codeborne.selenide.Selenide.open;
-import static com.codeborne.selenide.WebDriverRunner.getWebDriver;
-import static org.junit.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public abstract class BasePage {
 
@@ -17,8 +19,17 @@ public abstract class BasePage {
      */
     public static void openSectionOnURL(String URL) {
         open(URL);
-        assertEquals(baseUrl + URL, getWebDriver().getCurrentUrl());
+    }
 
+    /**
+     * Заполнение текстового поля
+     *
+     * @param input     идентификация поля по элементу в DOM
+     * @param textField передаваемое значение текста
+     */
+    public static void inputField(SelenideElement input, String textField) {
+        input.setValue(textField);
+        assertThat(input.getValue(), is(equalTo("" + textField + "")));
     }
 
 }

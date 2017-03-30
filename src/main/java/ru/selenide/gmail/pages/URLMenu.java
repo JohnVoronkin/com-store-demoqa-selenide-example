@@ -6,6 +6,7 @@ package ru.selenide.gmail.pages;
 public enum URLMenu {
 
     HOME_PAGE_GMAIL("/"),
+    ACCOUNTS_GOOGLE_PAGE("https://accounts.google.com/"),
             ;
 
     private String menuURL;
