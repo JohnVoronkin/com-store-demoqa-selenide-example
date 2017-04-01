@@ -55,7 +55,7 @@ public class YourAccountPage extends BasePage {
     }
 
     /**
-     * Не валидная авторизация
+     * Невалидная авторизация
      *
      * @param userAccount передаваемый логин и парль пользователя
      * @return YourAccountPage
