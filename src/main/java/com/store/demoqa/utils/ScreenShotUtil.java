@@ -1,7 +1,6 @@
-package ru.selenide.gmail.utils;
+package com.store.demoqa.utils;
 
 import com.codeborne.selenide.Screenshots;
-import com.google.common.io.Files;
 
 import java.io.File;
 

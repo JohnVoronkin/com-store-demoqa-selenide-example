@@ -1,4 +1,4 @@
-package ru.selenide.gmail.utils;
+package com.store.demoqa.utils;
 
 import java.util.Random;
 
@@ -12,7 +12,7 @@ public class DataRandomTest {
     /**
      * Метод генерирующий случайный email
      * <p>
-     * пример - .SendKeys(randomEmail());
+     * пример - .sendKeys(randomEmail());
      */
     public static String randomEmail() {
         int lengthName = 10;

@@ -1,4 +1,4 @@
-package ru.selenide.gmail.utils;
+package com.store.demoqa.utils;
 
 import java.io.File;
 import java.io.FileInputStream;

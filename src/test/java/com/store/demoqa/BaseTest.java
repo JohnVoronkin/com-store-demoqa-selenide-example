@@ -1,4 +1,4 @@
-package ru.selenide.gmail;
+package com.store.demoqa;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.junit.TextReport;
@@ -11,7 +11,7 @@ import org.junit.Rule;
 import org.junit.rules.TestRule;
 
 import static com.codeborne.selenide.Configuration.baseUrl;
-import static ru.selenide.gmail.utils.PropertiesReader.loadProperty;
+import static com.store.demoqa.utils.PropertiesReader.loadProperty;
 
 public abstract class BaseTest {
 

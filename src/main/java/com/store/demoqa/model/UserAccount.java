@@ -1,9 +1,9 @@
-package ru.selenide.gmail.model;
+package com.store.demoqa.model;
 
 
 public class UserAccount {
-    private String email = "";
 
+    private String email = "";
     private String password = "";
 
     /**

@@ -1,22 +1,23 @@
-package ru.selenide.gmail.pages;
+package com.store.demoqa.pages;
 
+import com.codeborne.selenide.Selenide;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
+import com.store.demoqa.base.BasePage;
 import org.openqa.selenium.NoSuchElementException;
-import ru.selenide.gmail.base.BasePage;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static com.store.demoqa.pages.URLMenu.YOUR_ACCOUNT_PAGE;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static ru.selenide.gmail.pages.URLMenu.ACCOUNTS_GOOGLE_PAGE;
 
 /**
- * This page - ServiceLoginPage
+ * This page - Your Account Page
  */
-public class ServiceLoginPage extends BasePage {
+public class YourAccountPage extends BasePage {
 
     private final SelenideElement formSignIn = $(".card.signin-card.pre-shift.no-name"),
             bannerText = $(byXpath("//div[@class='banner']/h1")),
@@ -25,22 +26,22 @@ public class ServiceLoginPage extends BasePage {
     /**
      * Открываем стр. сервеса по авторизации на почту
      *
-     * @return ServiceLoginPage() класс
+     * @return YourAccountPage() класс
      */
-    public ServiceLoginPage goToURLAccountGooglePage() {
-        open(ACCOUNTS_GOOGLE_PAGE.getMenuURL());
+    public YourAccountPage goToURLAccountGooglePage() {
+        Selenide.open(YOUR_ACCOUNT_PAGE.getMenuURL());
         assertThat("Проверяем загрузку стр. - сервис авторизации на почту", isPageLoaded());
-        return new ServiceLoginPage();
+        return new YourAccountPage();
     }
 
     /**
      * Заполняем поле email
      * @param email передаваемое значение email
-     * @return ServiceLoginPage
+     * @return YourAccountPage
      */
-    public ServiceLoginPage fillTheEmail(String email) {
+    public YourAccountPage fillTheEmail(String email) {
         assertThat("Проверяем загрузку стр. - сервис авторизации на почту", isPageLoaded());
-        inputField(this.email, email);
+        inputStringField(this.email, email);
         return this;
     }
 

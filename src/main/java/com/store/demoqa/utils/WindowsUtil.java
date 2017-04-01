@@ -1,4 +1,4 @@
-package ru.selenide.gmail.utils;
+package com.store.demoqa.utils;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;

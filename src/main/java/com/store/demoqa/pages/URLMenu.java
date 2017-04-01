@@ -1,13 +1,12 @@
-package ru.selenide.gmail.pages;
+package com.store.demoqa.pages;
 
 /**
- * Навигация меню (URL) по системе
+ * Navigation on the menu by direct URL
  */
 public enum URLMenu {
 
-    HOME_PAGE_GMAIL("/"),
-    ACCOUNTS_GOOGLE_PAGE("https://accounts.google.com/"),
-            ;
+    HOME_PAGE("/"),
+    YOUR_ACCOUNT_PAGE("products-page/your-account"),;
 
     private String menuURL;
 

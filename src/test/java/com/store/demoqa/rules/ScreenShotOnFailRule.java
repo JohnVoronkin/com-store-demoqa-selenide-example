@@ -1,6 +1,6 @@
-package ru.selenide.gmail.rules;
+package com.store.demoqa.rules;
 
-import ru.selenide.gmail.utils.ScreenShotUtil;
+import com.store.demoqa.utils.ScreenShotUtil;
 import org.junit.rules.TestRule;
 import org.junit.runner.Description;
 import org.junit.runners.model.Statement;
