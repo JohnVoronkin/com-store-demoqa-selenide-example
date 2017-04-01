@@ -6,7 +6,7 @@ package com.store.demoqa.pages;
 public enum URLMenu {
 
     HOME_PAGE("/"),
-    YOUR_ACCOUNT_PAGE("products-page/your-account"),;
+    YOUR_ACCOUNT_PAGE("/products-page/your-account/"),;
 
     private String menuURL;
 

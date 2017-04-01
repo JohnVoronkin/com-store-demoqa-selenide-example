@@ -1,5 +1,6 @@
 package com.store.demoqa.base;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -17,6 +18,7 @@ public abstract class BasePage {
      * @param textField передаваемое значение текста
      */
     public static void inputStringField(SelenideElement input, String textField) {
+        input.waitUntil(Condition.visible, 10000);
         input.setValue(textField);
         assertThat(input.getValue(), is(equalTo("" + textField + "")));
     }

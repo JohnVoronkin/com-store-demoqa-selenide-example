@@ -23,16 +23,20 @@ public class HomePage extends BasePage {
 
     private final SelenideElement logo = $(byXpath("//*[@id='logo']")),
             contentSearch = $(byXpath("//div[@id='content']/p")),
-            searchProduct = $(byCssSelector(".search"));
+            searchProduct = $(byXpath("//input[@class='search']"));
 
     public HomePage verifyMainMenuElements() {
-        assertThat("Проверяем загрузку домашней стр. ToolQA", isPageLoaded());
+        assertThat("Проверяем загрузку домашней стр.", isPageLoaded());
         return new HomePage();
     }
 
+    /**
+     * Осуществляем переход на дом. стр.
+     * @return
+     */
     public HomePage goToHomePage() {
         open("/");
-        assertThat("Проверяем загрузку домашней стр. ToolQA", isPageLoaded());
+        assertThat("Проверяем загрузку домашней стр.", isPageLoaded());
         return new HomePage();
     }
 

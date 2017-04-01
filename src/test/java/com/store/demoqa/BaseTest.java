@@ -11,6 +11,7 @@ import org.junit.Rule;
 import org.junit.rules.TestRule;
 
 import static com.codeborne.selenide.Configuration.baseUrl;
+import static com.codeborne.selenide.Selenide.open;
 import static com.store.demoqa.utils.PropertiesReader.loadProperty;
 
 public abstract class BaseTest {
@@ -22,6 +23,7 @@ public abstract class BaseTest {
     public static void beforeTestRunSetup() throws Exception {
         setDriverByName(loadProperty("CHROME"));
         baseUrl = loadProperty("URL");
+        open("/");
     }
 
     /**

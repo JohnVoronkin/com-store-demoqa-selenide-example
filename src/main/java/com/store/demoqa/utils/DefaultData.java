@@ -2,5 +2,6 @@ package com.store.demoqa.utils;
 
 public class DefaultData {
 
-    public static final String DEFAULT_EMAIL = "email@test.com";
+    public static final String DEFAULT_LOGIN = "john voronkin";
+    public static final String DEFAULT_PASS = "qd%QgBsRmfhZgqDv";
 }
