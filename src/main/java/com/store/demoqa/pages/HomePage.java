@@ -5,11 +5,12 @@ import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.store.demoqa.base.BasePage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 
 import static com.codeborne.selenide.CollectionCondition.size;
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byCssSelector;
+import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -25,6 +26,7 @@ public class HomePage extends BasePage {
             contentSearch = $(byXpath("//div[@id='content']/p")),
             searchProduct = $(byXpath("//input[@class='search']"));
 
+
     public HomePage verifyMainMenuElements() {
         assertThat("Проверяем загрузку домашней стр.", isPageLoaded());
         return new HomePage();
@@ -32,6 +34,7 @@ public class HomePage extends BasePage {
 
     /**
      * Осуществляем переход на дом. стр.
+     *
      * @return
      */
     public HomePage goToHomePage() {
@@ -41,17 +44,38 @@ public class HomePage extends BasePage {
     }
 
     /**
-     * Поиск товаров
+     * Поиск товара по имени
      *
-     * @param productName передаваемое значение (искомомое значение для поиска)
-     * @return HomePage()
+     * @param productName искомое имя продукта
+     * @return HomePage
      */
-    public HomePage checkTheProductSearch(String productName, String verifyResult) {
+    public HomePage checkTheProductSearch(String productName) {
         inputStringField(searchProduct, productName);
         searchProduct.pressEnter();
-        contentSearch.shouldHave(text(verifyResult));
         return new HomePage();
     }
+
+    /**
+     * Проверяем результат некорректного поиска
+     *
+     * @param verifyResult значение для верификации
+     */
+    public HomePage verifyInvalidResultSearch(String verifyResult) {
+        contentSearch.shouldHave(text(verifyResult));
+        return this;
+    }
+
+    /**
+     * Проверяем результат корректного поиска
+     *
+     * @param verifyResult значение для верификации
+     */
+    public HomePage verifyValidResultSearch(String verifyResult) {
+        $(By.xpath("//div[contains(@id,'grid_view_products_page_container')]//h2/a[contains(text(),'" + verifyResult + "')]"))
+                .shouldBe(visible);
+        return this;
+    }
+
 
     @Override
     public boolean isPageLoaded() {

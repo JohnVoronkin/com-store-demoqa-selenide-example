@@ -50,8 +50,9 @@ public class HomeTest extends BaseTest {
 
     @Test
     @UseDataProvider("bordersOfFieldValuesSearch")
-    public void checkTheInvalidSearch(String valueSearch, String errorMessages) {
-        homePage.checkTheProductSearch(valueSearch, errorMessages);
+    public void checkTheInvalidSearch(String valueSearch, String errorMessage) {
+        homePage.checkTheProductSearch(valueSearch)
+                .verifyInvalidResultSearch(errorMessage);
     }
 
 }

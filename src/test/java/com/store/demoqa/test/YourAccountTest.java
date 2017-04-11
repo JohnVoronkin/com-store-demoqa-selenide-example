@@ -21,7 +21,6 @@ public class YourAccountTest extends BaseTest {
 
     private YourAccountPage yourAccountPage;
 
-
     @DataProvider
     public static Object[][] combinationsOfNonValidAuthorization() {
         // @formatter:off

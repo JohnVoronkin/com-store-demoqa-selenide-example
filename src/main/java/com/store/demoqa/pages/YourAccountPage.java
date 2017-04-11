@@ -30,7 +30,7 @@ public class YourAccountPage extends BasePage {
     /**
      * Переходим на стр. авторизации в магазин
      *
-     * @return
+     * @return YourAccountPage
      */
     public YourAccountPage goToYourAccountPage() {
         open(YOUR_ACCOUNT_PAGE.getMenuURL());
