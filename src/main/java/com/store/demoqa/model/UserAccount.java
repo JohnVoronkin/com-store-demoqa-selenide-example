@@ -36,7 +36,7 @@ public class UserAccount {
     private String userNameBlankOrEnglish = blankOr(english(1, 10));
     private String passwordBlankOrEnglish = isBlank(userNameBlankOrEnglish) ? blankOr(english(10)) : nullOrBlank();
 
-    public UserAccount randomValue() {
+    public UserAccount randomBlankOrEnglishValue() {
         return new UserAccount()
                 .setUserName(userNameBlankOrEnglish)
                 .setPassword(passwordBlankOrEnglish);

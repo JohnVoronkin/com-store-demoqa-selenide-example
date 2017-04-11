@@ -25,11 +25,11 @@ public class YourAccountTest extends BaseTest {
     public static Object[][] combinationsOfNonValidAuthorization() {
         // @formatter:off
         return new Object[][]{
-                {new UserAccount().randomValue()},
-                {new UserAccount().randomValue()},
-                {new UserAccount().randomValue()},
-                {new UserAccount().randomValue()},
-                {new UserAccount().randomValue()},
+                {new UserAccount().randomBlankOrEnglishValue()},
+                {new UserAccount().randomBlankOrEnglishValue()},
+                {new UserAccount().randomBlankOrEnglishValue()},
+                {new UserAccount().randomBlankOrEnglishValue()},
+                {new UserAccount().randomBlankOrEnglishValue()},
 
         };
         // @formatter:on
