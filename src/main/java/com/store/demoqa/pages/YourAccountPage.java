@@ -16,6 +16,7 @@ import static com.codeborne.selenide.Selenide.open;
 import static com.store.demoqa.pages.URLMenu.YOUR_ACCOUNT_PAGE;
 import static com.store.demoqa.utils.DefaultData.DEFAULT_LOGIN;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * This page - Your Account Page
@@ -77,6 +78,7 @@ public class YourAccountPage extends BasePage {
             return true;
         } catch (NoSuchElementException | ElementNotFound ex) {
             ex.printStackTrace();
+            fail("The required items on the page are not displayed");
             return false;
         }
     }

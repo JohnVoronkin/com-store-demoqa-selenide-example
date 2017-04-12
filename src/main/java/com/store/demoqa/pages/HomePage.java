@@ -14,6 +14,7 @@ import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.fail;
 
 /**
  * This page is a page object example Home Page
@@ -85,6 +86,7 @@ public class HomePage extends BasePage {
             return true;
         } catch (NoSuchElementException | ElementNotFound ex) {
             ex.printStackTrace();
+            fail("The required items on the page are not displayed");
             return false;
         }
     }
