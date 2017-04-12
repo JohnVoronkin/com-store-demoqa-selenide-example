@@ -4,9 +4,9 @@ import com.store.demoqa.BaseTest;
 import com.store.demoqa.pages.HomePage;
 import com.store.demoqa.pages.YourAccountPage;
 import com.store.demoqa.rules.ScreenShotOnFailRule;
-import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import static com.store.demoqa.utils.DefaultData.DEFAULT_LOGIN;
 import static com.store.demoqa.utils.DefaultData.DEFAULT_PASS;
@@ -23,7 +23,7 @@ public class AddCartTest extends BaseTest {
     @Rule
     public ScreenShotOnFailRule screenShotOnFailRule = new ScreenShotOnFailRule();
 
-    @Before
+    @BeforeEach
     public void setUp() {
         yourAccountPage = new YourAccountPage();
         homePage = new HomePage();

@@ -6,8 +6,8 @@ import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.EdgeDriverManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
-import org.junit.BeforeClass;
 import org.junit.Rule;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.rules.TestRule;
 
 import static com.codeborne.selenide.Configuration.baseUrl;
@@ -19,7 +19,7 @@ public abstract class BaseTest {
     @Rule
     public TestRule report = new TextReport().onFailedTest(true).onSucceededTest(true);
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeTestRunSetup() throws Exception {
         setDriverByName(loadProperty("CHROME"));
         baseUrl = loadProperty("URL");

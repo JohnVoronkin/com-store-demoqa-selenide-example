@@ -1,59 +1,36 @@
 package com.store.demoqa.test;
 
-
 import com.store.demoqa.BaseTest;
-import com.store.demoqa.model.UserAccount;
+import com.store.demoqa.data.UserParameterResolver;
+import com.store.demoqa.model.User;
 import com.store.demoqa.pages.YourAccountPage;
-import com.store.demoqa.rules.ScreenShotOnFailRule;
-import com.tngtech.java.junit.dataprovider.DataProvider;
-import com.tngtech.java.junit.dataprovider.DataProviderRunner;
-import com.tngtech.java.junit.dataprovider.UseDataProvider;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import static com.store.demoqa.utils.DefaultData.DEFAULT_LOGIN;
 import static com.store.demoqa.utils.DefaultData.DEFAULT_PASS;
 
-@RunWith(DataProviderRunner.class)
+@ExtendWith(UserParameterResolver.class)
 public class YourAccountTest extends BaseTest {
 
     private YourAccountPage yourAccountPage;
 
-    @DataProvider
-    public static Object[][] combinationsOfNonValidAuthorization() {
-        // @formatter:off
-        return new Object[][]{
-                {new UserAccount().randomBlankOrEnglishValue()},
-                {new UserAccount().randomBlankOrEnglishValue()},
-                {new UserAccount().randomBlankOrEnglishValue()},
-                {new UserAccount().randomBlankOrEnglishValue()},
-                {new UserAccount().randomBlankOrEnglishValue()},
-
-        };
-        // @formatter:on
-    }
-
-    @Rule
-    public ScreenShotOnFailRule screenShotOnFailRule = new ScreenShotOnFailRule();
-
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         yourAccountPage = new YourAccountPage();
     }
 
     @Test
-    public void verifySuccessfulAuthorization() {
+    void verifySuccessfulAuthorization() {
         yourAccountPage.goToYourAccountPage().
                 loginAs(DEFAULT_LOGIN, DEFAULT_PASS);
     }
 
     @Test
-    @UseDataProvider("combinationsOfNonValidAuthorization")
-    public void verifyUnsuccessfulAuthorization(UserAccount userAuthorization) {
+    void verifyUnsuccessfulAuthorization(User valueAuthorization) {
         yourAccountPage.goToYourAccountPage().
-                noLogin(userAuthorization);
+                noLogin(valueAuthorization);
     }
 
 

@@ -3,7 +3,7 @@ package com.store.demoqa.pages;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.store.demoqa.base.BasePage;
-import com.store.demoqa.model.UserAccount;
+import com.store.demoqa.model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 
@@ -58,12 +58,12 @@ public class YourAccountPage extends BasePage {
     /**
      * Невалидная авторизация
      *
-     * @param userAccount передаваемый логин и парль пользователя
+     * @param user передаваемый логин и парль пользователя
      * @return YourAccountPage
      */
-    public YourAccountPage noLogin(UserAccount userAccount) {
-        this.userName.setValue(userAccount.getUserName());
-        this.password.setValue(userAccount.getPassword());
+    public YourAccountPage noLogin(User user) {
+        this.userName.setValue(user.getUserName());
+        this.password.setValue(user.getPassword());
         login.submit();
         $(byXpath("//strong[text()='ERROR']")).shouldBe(visible);
         return this;
