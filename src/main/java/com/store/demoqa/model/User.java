@@ -9,6 +9,14 @@ public class User {
     private String userName = "";
     private String password = "";
 
+    public User() {
+    }
+
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+    }
+
     /**
      * userName for account user
      */
@@ -34,12 +42,21 @@ public class User {
     }
 
     private String userNameBlankOrEnglish = blankOr(english(1, 10));
-    private String passwordBlankOrEnglish = isBlank(userNameBlankOrEnglish) ? blankOr(english(10)) : nullOrBlank();
+    private String passwordBlankOrEnglish = isBlank(userNameBlankOrEnglish) ?
+            blankOr(english(10)) : nullOrBlank();
 
     public User randomBlankOrEnglishValue() {
         return new User()
                 .setUserName(userNameBlankOrEnglish)
                 .setPassword(passwordBlankOrEnglish);
     }
+
+    @Override
+    public String toString() {
+        return "User [name=" + userName + ", " +
+                "age=" + password + "]"
+                ;
+    }
+
 
 }

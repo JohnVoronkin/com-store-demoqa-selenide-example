@@ -10,9 +10,16 @@ import org.junit.Rule;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.rules.TestRule;
 
+import java.util.stream.Stream;
+
 import static com.codeborne.selenide.Configuration.baseUrl;
-import static com.codeborne.selenide.Selenide.open;
+import static com.store.demoqa.pages.WarningMessages.INVALID_SEARCH;
 import static com.store.demoqa.utils.PropertiesReader.loadProperty;
+import static io.qala.datagen.RandomShortApi.numeric;
+import static io.qala.datagen.RandomShortApi.unicode;
+import static io.qala.datagen.RandomValue.length;
+import static io.qala.datagen.StringModifier.Impls.prefix;
+import static io.qala.datagen.StringModifier.Impls.specialSymbol;
 
 public abstract class BaseTest {
 
@@ -23,7 +30,6 @@ public abstract class BaseTest {
     public static void beforeTestRunSetup() throws Exception {
         setDriverByName(loadProperty("CHROME"));
         baseUrl = loadProperty("URL");
-        open("/");
     }
 
     /**

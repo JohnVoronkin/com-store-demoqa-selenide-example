@@ -1,7 +1,6 @@
 group 'com.store.demoqa.selenide.example'
 version '0.2'
 apply plugin: 'java'
-
 defaultTasks 'clean', 'test'
 
 compileTestJava {
@@ -9,8 +8,38 @@ compileTestJava {
     targetCompatibility = 1.8
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4'
+    }
+}
+
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+
 repositories {
     mavenCentral()
+}
+
+junitPlatform {
+    // platformVersion '1.0.0-M4'
+    filters {
+        engines {
+            // include 'junit-jupiter', 'junit-vintage'
+            // exclude 'custom-engine'
+        }
+        tags {
+            // include 'fast'
+            exclude 'slow'
+        }
+        // includeClassNamePattern '.*Test'
+    }
+    // enableStandardTestTask true
+    // reportsDir file('build/test-results/junit-platform') // this is the default
+    logManager 'org.apache.logging.log4j.jul.LogManager'
 }
 
 dependencies {
@@ -25,8 +54,10 @@ dependencies {
     // https://mvnrepository.com/artifact/io.qala.datagen/qala-datagen
     compile group: 'io.qala.datagen', name: 'qala-datagen', version: '1.10.1'
     // http://junit.org/junit5/
-    compile 'org.junit.jupiter:junit-jupiter-api:5.0.0-M3'
-    compile 'org.junit.jupiter:junit-jupiter-engine:5.0.0-M3'
+    testCompile("org.junit.jupiter:junit-jupiter-api:5.0.0-M4")
+    testCompile("org.junit.jupiter:junit-jupiter-params:5.0.0-M4")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:5.0.0-M4")
+
 }
 
 tasks.withType(JavaCompile) {
@@ -40,7 +71,7 @@ tasks.withType(Test) {
         testTask.reports.html.enabled = true
         testTask.systemProperties(
                 'selenide.start.maximized': true,
-                'selenide.savePageSource':  false,
-                'selenide.timeout':         6000,
+                'selenide.savePageSource': false,
+                'selenide.timeout': 6000,
         )
 }

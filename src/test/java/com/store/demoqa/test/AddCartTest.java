@@ -8,6 +8,7 @@ import org.junit.Rule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Selenide.open;
 import static com.store.demoqa.utils.DefaultData.DEFAULT_LOGIN;
 import static com.store.demoqa.utils.DefaultData.DEFAULT_PASS;
 import static com.store.demoqa.utils.DefaultData.PRODUCT_IPHONE_4S_32;
@@ -24,13 +25,14 @@ public class AddCartTest extends BaseTest {
     public ScreenShotOnFailRule screenShotOnFailRule = new ScreenShotOnFailRule();
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         yourAccountPage = new YourAccountPage();
         homePage = new HomePage();
+        open("/");
     }
 
     @Test
-    public void verifyAddCart() {
+    void verifyAddCart() {
         yourAccountPage.goToYourAccountPage().
                 loginAs(DEFAULT_LOGIN, DEFAULT_PASS);
         homePage.checkTheProductSearch(PRODUCT_IPHONE_4S_32)

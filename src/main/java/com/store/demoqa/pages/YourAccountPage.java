@@ -7,12 +7,15 @@ import com.store.demoqa.model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 
+import java.util.List;
+
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byCssSelector;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
+import static com.codeborne.selenide.Selenide.sleep;
 import static com.store.demoqa.pages.URLMenu.YOUR_ACCOUNT_PAGE;
 import static com.store.demoqa.utils.DefaultData.DEFAULT_LOGIN;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -26,7 +29,8 @@ public class YourAccountPage extends BasePage {
     private final SelenideElement userName = $(byCssSelector("#log")),
             password = $(byCssSelector("#pwd")),
             login = $(byCssSelector("#login")),
-            menuOnlineStore = $(byXpath("//li[@id='wp-admin-bar-site-name' and @class='menupop']"));
+            menuOnlineStore = $(byXpath("//li[@id='wp-admin-bar-site-name' and @class='menupop']")),
+            logout = $(byCssSelector("#wp-admin-bar-logout > a"));
 
     /**
      * Переходим на стр. авторизации в магазин
@@ -53,6 +57,18 @@ public class YourAccountPage extends BasePage {
         menuOnlineStore.waitUntil(visible, 10000);
         $(By.xpath(".//*[@id='wp-admin-bar-my-account']/a")).shouldHave(text("Howdy, " + DEFAULT_LOGIN));
         return this;
+    }
+
+    /**
+     * Выход из системы
+     *
+     * @return ToolsQALoggedOutPage()
+     */
+    public ToolsQALoggedOutPage logout() {
+        $(By.xpath(".//*[@id='wp-admin-bar-my-account']/a")).shouldHave(text("Howdy, " + DEFAULT_LOGIN)).hover();
+        sleep(200);
+        logout.click();
+        return new ToolsQALoggedOutPage();
     }
 
     /**
