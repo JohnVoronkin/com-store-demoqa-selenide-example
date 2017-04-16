@@ -1,13 +1,12 @@
 package com.store.demoqa.test;
 
+import com.automation.remarks.video.annotations.Video;
 import com.store.demoqa.BaseTest;
 import com.store.demoqa.pages.HomePage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-
-import java.util.stream.Stream;
 
 import static com.codeborne.selenide.Selenide.open;
 import static com.store.demoqa.pages.WarningMessages.INVALID_SEARCH;
@@ -37,6 +36,7 @@ public class HomeTest extends BaseTest {
 
     @ParameterizedTest
     @MethodSource(names = "loginAndPasswordProvider")
+    @Video
     void checkTheInvalidSearch(String valueSearch, String errorMessage) {
         homePage.checkTheProductSearch(valueSearch)
                 .verifyInvalidResultSearch(errorMessage);

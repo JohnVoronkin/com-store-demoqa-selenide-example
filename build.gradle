@@ -15,7 +15,7 @@ repositories {
     mavenCentral()
 }
 
-ext.junitPlatformVersion = '1.0.0-M3'
+ext.junitPlatformVersion = '1.0.0-M4'
 ext.junitJupiterVersion  = '5.0.0-M4'
 ext.log4jVersion         = '2.6.2'
 
@@ -74,6 +74,9 @@ dependencies {
 
     testRuntime("org.apache.logging.log4j:log4j-core:${log4jVersion}")
     testRuntime("org.apache.logging.log4j:log4j-jul:${log4jVersion}")
+
+    // https://github.com/SergeyPirogov/video-recorder-java
+    compile group: 'com.automation-remarks', name: 'video-recorder-junit', version: '1.+'
 
 }
 
