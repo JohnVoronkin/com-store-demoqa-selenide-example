@@ -16,24 +16,13 @@ import static io.qala.datagen.RandomShortApi.unicode;
 import static io.qala.datagen.RandomValue.length;
 import static io.qala.datagen.StringModifier.Impls.prefix;
 import static io.qala.datagen.StringModifier.Impls.specialSymbol;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static java.util.Arrays.asList;
 
 
 public class HomeTest extends BaseTest {
 
     private HomePage homePage;
 
-    static Stream<String> loginAndPasswordProvider() {
-        return Stream.of(length(10).with(prefix("Search")).numeric(), INVALID_SEARCH.getWarningMessages(),
-                length(20).with(specialSymbol()).english(), INVALID_SEARCH.getWarningMessages(),
-                unicode(5, 10), INVALID_SEARCH.getWarningMessages(),
-                numeric(5, 19), INVALID_SEARCH.getWarningMessages())
-                ;
-    }
-
-    static Stream<String> stringProvider() {
-        return Stream.of("foo", "bar");
-    }
 
     @BeforeEach
     void setUp() {
@@ -46,17 +35,20 @@ public class HomeTest extends BaseTest {
         homePage.verifyMainMenuElements();
     }
 
-    @Test
-   // @MethodSource(names = "loginAndPasswordProvider")
+    @ParameterizedTest
+    @MethodSource(names = "loginAndPasswordProvider")
     void checkTheInvalidSearch(String valueSearch, String errorMessage) {
         homePage.checkTheProductSearch(valueSearch)
                 .verifyInvalidResultSearch(errorMessage);
     }
 
-    @Test
-  //  @MethodSource(names = "stringProvider")
-    void testWithSimpleMethodSource(String argument) {
-        assertNotNull(argument);
+    static Iterable<String> loginAndPasswordProvider() {
+        return asList(length(10).with(prefix("Search")).numeric(), INVALID_SEARCH.getWarningMessages(),
+                length(20).with(specialSymbol()).english(), INVALID_SEARCH.getWarningMessages(),
+                unicode(5, 10), INVALID_SEARCH.getWarningMessages(),
+                numeric(5, 19), INVALID_SEARCH.getWarningMessages())
+                ;
     }
+
 
 }

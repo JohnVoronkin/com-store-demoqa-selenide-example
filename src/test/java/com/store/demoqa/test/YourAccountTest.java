@@ -11,15 +11,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import static com.codeborne.selenide.Selenide.open;
 import static com.store.demoqa.utils.DefaultData.DEFAULT_LOGIN;
 import static com.store.demoqa.utils.DefaultData.DEFAULT_PASS;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-//@ExtendWith(UserParameterResolver.class)
+
 public class YourAccountTest extends BaseTest {
 
     private YourAccountPage yourAccountPage;
@@ -32,8 +29,8 @@ public class YourAccountTest extends BaseTest {
         open("/");
     }
 
-    @Test
     @DisplayName("Авторизация в систему")
+    @Test
     void verifySuccessfulAuthorization() {
         yourAccountPage.goToYourAccountPage().
                 loginAs(DEFAULT_LOGIN, DEFAULT_PASS)
@@ -41,8 +38,9 @@ public class YourAccountTest extends BaseTest {
         assertThat("The authorization page is displayed", toolsQALoggedOutPage.isPageLoaded());
     }
 
-    @Test
     @DisplayName("Авторизация не проходит")
+    @ExtendWith(UserParameterResolver.class)
+    @ParameterizedTest
     void verifyUnsuccessfulAuthorization(User valueAuthorization) {
         yourAccountPage.goToYourAccountPage().
                 noLogin(valueAuthorization);
