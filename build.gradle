@@ -27,7 +27,7 @@ apply plugin: 'org.junit.platform.gradle.plugin'
 
 
 jar {
-    baseName = 'junit5-gradle-consumer'
+    baseName = 'com-store-demoqa-selenide-example'
     version = '1.2.0-SNAPSHOT'
 }
 

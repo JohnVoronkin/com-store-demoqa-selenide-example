@@ -1,5 +1,5 @@
-# Selenide, Gradle, JUnit4 example
-This example demonstrates project testing store (http://store.demoqa.com/) how to use [JUnit](http://junit.org/junit4/) adapter with [Gradle](http://www.gradle.org/) build tool and 
+# Selenide, Gradle, JUnit5 example
+This example demonstrates project testing store (http://store.demoqa.com/) how to use [JUnit5](http://junit.org/junit5/) adapter with [Gradle](http://www.gradle.org/) build tool and 
 framework for test automation [Selenide] (http://selenide.org/)
 
 **Usage**
