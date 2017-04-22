@@ -83,13 +83,12 @@ public class YourAccountPage extends BasePage {
         for (User user : users) {
             this.userName.setValue(user.getUserName());
             this.password.setValue(user.getPassword());
-            try {
-                if (isElementPresent(byXpath(String.valueOf("//p[text()='Please enter your username and password.'"))))
-                    ;
-            } catch (NoSuchElementException | ElementNotFound ex) {
-                $(byXpath("//strong[text()='ERROR']")).shouldBe(visible);
-            }
             login.submit();
+            try {
+                $(byXpath("//strong[text()='ERROR']")).shouldBe(visible);
+            } catch (NoSuchElementException | ElementNotFound ex) {
+                $(byXpath("//p[text()='Please enter your username and password.'")).shouldBe(visible);
+            }
         }
         return this;
     }
