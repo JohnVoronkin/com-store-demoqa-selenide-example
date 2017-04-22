@@ -13,6 +13,8 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byXpath;
 import static com.codeborne.selenide.Selenide.*;
+import static com.store.demoqa.pages.WarningMessages.INVALID_SEARCH;
+import static com.store.demoqa.utils.DefaultData.PRODUCT_IPHONE_4S_32;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
 
@@ -36,7 +38,7 @@ public class HomePage extends BasePage {
     /**
      * Осуществляем переход на дом. стр.
      *
-     * @return
+     * @return HomePage object
      */
     public HomePage goToHomePage() {
         open("/");
@@ -53,30 +55,17 @@ public class HomePage extends BasePage {
     public HomePage checkTheProductSearch(String productName) {
         inputStringField(searchProduct, productName);
         searchProduct.pressEnter();
+        try {
+            // Проверяем результат (сообщение) о некорректном поиске
+            if (isElementPresent(byXpath(String.valueOf(contentSearch))))
+                contentSearch.shouldHave(text(INVALID_SEARCH.getWarningMessages()));
+        } catch (NoSuchElementException | ElementNotFound ex) {
+            // Проверяем результат корректного поиска
+            $(By.xpath("//div[contains(@id,'grid_view_products_page_container')]//h2/a[contains(text(),'" + PRODUCT_IPHONE_4S_32 + "')]"))
+                    .waitUntil(visible, 10000);
+        }
         return new HomePage();
     }
-
-    /**
-     * Проверяем результат некорректного поиска
-     *
-     * @param verifyResult значение для верификации
-     */
-    public HomePage verifyInvalidResultSearch(String verifyResult) {
-        contentSearch.shouldHave(text(verifyResult));
-        return this;
-    }
-
-    /**
-     * Проверяем результат корректного поиска
-     *
-     * @param verifyResult значение для верификации
-     */
-    public HomePage verifyValidResultSearch(String verifyResult) {
-        $(By.xpath("//div[contains(@id,'grid_view_products_page_container')]//h2/a[contains(text(),'" + verifyResult + "')]"))
-                .shouldBe(visible);
-        return this;
-    }
-
 
     @Override
     public boolean isPageLoaded() {

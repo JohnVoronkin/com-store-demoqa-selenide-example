@@ -1,6 +1,5 @@
 package com.store.demoqa.model;
 
-
 import static io.qala.datagen.RandomShortApi.*;
 import static org.apache.commons.lang3.StringUtils.isBlank;
 

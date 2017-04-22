@@ -1,35 +1,21 @@
 package com.store.demoqa;
 
 import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.junit.TextReport;
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.EdgeDriverManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
-import org.junit.Rule;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.rules.TestRule;
-
-import java.util.stream.Stream;
+import org.testng.annotations.BeforeClass;
 
 import static com.codeborne.selenide.Configuration.baseUrl;
-import static com.store.demoqa.pages.WarningMessages.INVALID_SEARCH;
 import static com.store.demoqa.utils.PropertiesReader.loadProperty;
-import static io.qala.datagen.RandomShortApi.numeric;
-import static io.qala.datagen.RandomShortApi.unicode;
-import static io.qala.datagen.RandomValue.length;
-import static io.qala.datagen.StringModifier.Impls.prefix;
-import static io.qala.datagen.StringModifier.Impls.specialSymbol;
 
 public abstract class BaseTest {
 
-    @Rule
-    public TestRule report = new TextReport().onFailedTest(true).onSucceededTest(true);
-
-    @BeforeAll
+    @BeforeClass
     public static void beforeTestRunSetup() throws Exception {
-        setDriverByName(loadProperty("CHROME"));
-        baseUrl = loadProperty("URL");
+        setDriverByName("chrome");
+        baseUrl = "http://store.demoqa.com";
     }
 
     /**
@@ -39,6 +25,11 @@ public abstract class BaseTest {
      * @throws Exception
      */
     private static void setDriverByName(String browser) throws Exception {
+
+        if (browser == null || browser.isEmpty()) {
+            throw new IllegalStateException("'browser' property is missing!");
+        }
+
         switch (browser) {
             case "gecko":
                 Configuration.browser = "gecko";
@@ -57,8 +48,10 @@ public abstract class BaseTest {
                 EdgeDriverManager.getInstance().setup();
                 break;
             default:
-                throw new IllegalStateException("Browser " + browser + " not supported in test");
+                throw new IllegalArgumentException("Browser " + browser + " not supported in test");
         }
     }
 
 }
+
+

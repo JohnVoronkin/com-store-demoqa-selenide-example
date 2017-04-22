@@ -10,8 +10,9 @@ public class PropertiesReader {
     public static String loadProperty(String name) {
         Properties prop = new Properties();
         try {
-            prop.load(new FileInputStream("src" + File.separator + "main"
-                    + File.separator + "resources" + File.separator + "testdata.properties"));
+            prop.load(new FileInputStream("src" + File.separator + "test"
+                    + File.separator + "resources" + File.separator + "properties"
+                    + File.separator + "resources.properties"));
         } catch (IOException e) {
             e.printStackTrace();
         }
