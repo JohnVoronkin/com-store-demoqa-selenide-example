@@ -33,7 +33,6 @@ public class YourAccountTest extends BaseTest {
         open("/");
     }
 
-
     @Test
     void verifySuccessfulAuthorization() {
         yourAccountPage.goToYourAccountPage().
@@ -43,10 +42,10 @@ public class YourAccountTest extends BaseTest {
     }
 
 
-    @Test(dataProvider = "objectDataEventTemplates", dataProviderClass = DataUsers.class)
+    @Test(dataProvider = "DataProviderUsers", dataProviderClass = DataUsers.class)
     void verifyUnsuccessfulAuthorization(ArrayList<User> users) {
         yourAccountPage.goToYourAccountPage().
-                noLogin(users.get(0));
+                noLogin(users);
     }
 
 

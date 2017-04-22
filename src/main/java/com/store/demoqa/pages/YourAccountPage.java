@@ -7,6 +7,7 @@ import com.store.demoqa.model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.codeborne.selenide.Condition.text;
@@ -20,6 +21,7 @@ import static com.store.demoqa.pages.URLMenu.YOUR_ACCOUNT_PAGE;
 import static com.store.demoqa.utils.DefaultData.DEFAULT_LOGIN;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.fail;
+import static org.openqa.selenium.By.xpath;
 
 /**
  * This page - Your Account Page
@@ -55,7 +57,7 @@ public class YourAccountPage extends BasePage {
         this.password.setValue(password);
         login.submit();
         menuOnlineStore.waitUntil(visible, 10000);
-        $(By.xpath(".//*[@id='wp-admin-bar-my-account']/a")).shouldHave(text("Howdy, " + DEFAULT_LOGIN));
+        $(xpath(".//*[@id='wp-admin-bar-my-account']/a")).shouldHave(text("Howdy, " + DEFAULT_LOGIN));
         return this;
     }
 
@@ -65,7 +67,7 @@ public class YourAccountPage extends BasePage {
      * @return ToolsQALoggedOutPage()
      */
     public ToolsQALoggedOutPage logout() {
-        $(By.xpath(".//*[@id='wp-admin-bar-my-account']/a")).shouldHave(text("Howdy, " + DEFAULT_LOGIN)).hover();
+        $(xpath(".//*[@id='wp-admin-bar-my-account']/a")).shouldHave(text("Howdy, " + DEFAULT_LOGIN)).hover();
         sleep(200);
         logout.click();
         return new ToolsQALoggedOutPage();
@@ -74,14 +76,21 @@ public class YourAccountPage extends BasePage {
     /**
      * Невалидная авторизация
      *
-     * @param user передаваемый логин и парль пользователя
+     * @param users передаваемый логин и парль пользователя
      * @return YourAccountPage
      */
-    public YourAccountPage noLogin(User user) {
-        this.userName.setValue(user.getUserName());
-        this.password.setValue(user.getPassword());
-        login.submit();
-        $(byXpath("//strong[text()='ERROR']")).shouldBe(visible);
+    public YourAccountPage noLogin(ArrayList<User> users) {
+        for (User user : users) {
+            this.userName.setValue(user.getUserName());
+            this.password.setValue(user.getPassword());
+            try {
+                if (isElementPresent(byXpath(String.valueOf("//p[text()='Please enter your username and password.'"))))
+                    ;
+            } catch (NoSuchElementException | ElementNotFound ex) {
+                $(byXpath("//strong[text()='ERROR']")).shouldBe(visible);
+            }
+            login.submit();
+        }
         return this;
     }
 

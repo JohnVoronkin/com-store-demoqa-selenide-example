@@ -13,7 +13,7 @@ import static io.qala.datagen.StringModifier.Impls.specialSymbol;
 public class DataValueForSearch {
 
         @DataProvider
-        public Object[][] dataForSearch() {
+        public Object[][] dataProviderForSearch() {
             return new Object[][]{
                     {length(10).with(prefix("Search")).numeric()},
                     {length(20).with(specialSymbol()).english()},

@@ -25,30 +25,24 @@ public class DataUsers {
      *
      * @return коллекция объект - Пользователь
      */
-    public static ArrayList<User> getEmployees() {
+    private static ArrayList<User> getUsers() {
         ArrayList<User> users = user;
         if (user.isEmpty()) {
-            User user = new User().randomBlankOrEnglishValue();
-            User user2 = new User().randomBlankOrEnglishValue();
-            User user3 = new User().randomBlankOrEnglishValue();
-
-            users.add(user);
-            users.add(user2);
-            users.add(user3);
+            users.add(new User().randomBlankOrEnglishValue());
+            users.add(new User().randomBlankOrEnglishValue());
+            users.add(new User().randomBlankOrEnglishValue());
+            users.add(new User().randomBlankOrEnglishValue());
+            users.add(new User().randomBlankOrEnglishValue());
         }
-
         return users;
-
     }
 
-
     @DataProvider
-    public Object[][] objectDataEventTemplates() {
-
+    public Object[][] DataProviderUsers() {
 
         return new Object[][]{
                 {
-                    getEmployees()
+                        getUsers()
                 },
         };
 

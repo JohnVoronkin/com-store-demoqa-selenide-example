@@ -30,7 +30,7 @@ public class HomeTest extends BaseTest {
     }
 
 
-    @Test(dataProvider = "dataForSearch", dataProviderClass = DataValueForSearch.class)
+    @Test(dataProvider = "dataProviderForSearch", dataProviderClass = DataValueForSearch.class)
     void checkSearch(String valueSearch) {
         homePage.checkTheProductSearch(valueSearch);
     }
