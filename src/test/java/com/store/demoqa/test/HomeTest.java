@@ -1,58 +1,39 @@
 package com.store.demoqa.test;
 
+import com.codeborne.selenide.testng.TextReport;
+import com.codeborne.selenide.testng.annotations.Report;
 import com.store.demoqa.BaseTest;
+import com.store.demoqa.data.DataValueForSearch;
 import com.store.demoqa.pages.HomePage;
-import com.store.demoqa.rules.ScreenShotOnFailRule;
-import com.tngtech.java.junit.dataprovider.DataProvider;
-import com.tngtech.java.junit.dataprovider.DataProviderRunner;
-import com.tngtech.java.junit.dataprovider.UseDataProvider;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.store.demoqa.utils.ScreenShotOnFailListener;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
+import org.testng.annotations.Test;
 
-import static com.store.demoqa.pages.WarningMessages.INVALID_SEARCH;
-import static io.qala.datagen.RandomShortApi.numeric;
-import static io.qala.datagen.RandomShortApi.unicode;
-import static io.qala.datagen.RandomValue.length;
-import static io.qala.datagen.StringModifier.Impls.prefix;
-import static io.qala.datagen.StringModifier.Impls.specialSymbol;
+import static com.codeborne.selenide.Selenide.open;
 
-@RunWith(DataProviderRunner.class)
+@Listeners({ScreenShotOnFailListener.class, TextReport.class})
+@Report
 public class HomeTest extends BaseTest {
 
     private HomePage homePage;
 
-    @DataProvider
-    public static Object[][] bordersOfFieldValuesSearch() {
-        // @formatter:off
-        return new Object[][]{
-                {length(10).with(prefix("Search")).numeric(), INVALID_SEARCH.getWarningMessages()},
-                {length(20).with(specialSymbol()).english(), INVALID_SEARCH.getWarningMessages()},
-                {unicode(5, 10), INVALID_SEARCH.getWarningMessages()},
-                {numeric(5, 19), INVALID_SEARCH.getWarningMessages()},
-        };
-        // @formatter:on
-    }
-
-    @Rule
-    public ScreenShotOnFailRule screenShotOnFailRule = new ScreenShotOnFailRule();
-
-    @Before
-    public void setUp() {
+    @BeforeMethod
+    void setUp() {
         homePage = new HomePage();
+        open("/");
     }
 
     @Test
-    public void verifyMainMenu() {
+    void verifyMainMenu() {
         homePage.verifyMainMenuElements();
     }
 
-    @Test
-    @UseDataProvider("bordersOfFieldValuesSearch")
-    public void checkTheInvalidSearch(String valueSearch, String errorMessage) {
-        homePage.checkTheProductSearch(valueSearch)
-                .verifyInvalidResultSearch(errorMessage);
+
+    @Test(dataProvider = "dataProviderForSearch", dataProviderClass = DataValueForSearch.class)
+    void checkSearch(String valueSearch) {
+        homePage.checkTheProductSearch(valueSearch);
     }
+
 
 }
