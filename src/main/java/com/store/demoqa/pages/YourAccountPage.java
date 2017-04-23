@@ -87,7 +87,7 @@ public class YourAccountPage extends BasePage {
             try {
                 $(byXpath("//strong[text()='ERROR']")).shouldBe(visible);
             } catch (NoSuchElementException | ElementNotFound ex) {
-                $(byXpath("//p[text()='Please enter your username and password.'")).shouldBe(visible);
+                $(byXpath("//p[text()='Please enter your username and password.']")).shouldBe(visible);
             }
         }
         return this;

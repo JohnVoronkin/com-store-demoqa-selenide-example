@@ -41,7 +41,6 @@ public class YourAccountTest extends BaseTest {
         assertThat("The authorization page is displayed", toolsQALoggedOutPage.isPageLoaded());
     }
 
-
     @Test(dataProvider = "DataProviderUsers", dataProviderClass = DataUsers.class)
     void verifyUnsuccessfulAuthorization(ArrayList<User> users) {
         yourAccountPage.goToYourAccountPage().
