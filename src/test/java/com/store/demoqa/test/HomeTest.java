@@ -1,24 +1,21 @@
 package com.store.demoqa.test;
 
-import com.codeborne.selenide.testng.TextReport;
-import com.codeborne.selenide.testng.annotations.Report;
 import com.store.demoqa.BaseTest;
-import com.store.demoqa.data.DataValueForSearch;
+import com.store.demoqa.data.DataValueParameterForSearch;
 import com.store.demoqa.pages.HomePage;
-import com.store.demoqa.utils.ScreenShotOnFailListener;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.Listeners;
-import org.testng.annotations.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ArgumentsSource;
 
 import static com.codeborne.selenide.Selenide.open;
+import static org.hamcrest.MatcherAssert.assertThat;
 
-@Listeners({ScreenShotOnFailListener.class, TextReport.class})
-@Report
 public class HomeTest extends BaseTest {
 
     private HomePage homePage;
 
-    @BeforeMethod
+    @BeforeEach
     void setUp() {
         homePage = new HomePage();
         open("/");
@@ -26,14 +23,18 @@ public class HomeTest extends BaseTest {
 
     @Test
     void verifyMainMenu() {
-        homePage.verifyMainMenuElements();
+        assertThat("Проверяем загрузку домашней стр.", homePage.isPageLoaded());
     }
 
 
-    @Test(dataProvider = "dataProviderForSearch", dataProviderClass = DataValueForSearch.class)
+    @ParameterizedTest
+    @ArgumentsSource(DataValueParameterForSearch.class)
+    @Test
     void checkSearch(String valueSearch) {
         homePage.checkTheProductSearch(valueSearch);
     }
+
+
 
 
 }

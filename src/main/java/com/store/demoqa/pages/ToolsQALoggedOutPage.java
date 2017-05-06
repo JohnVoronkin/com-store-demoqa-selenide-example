@@ -5,13 +5,14 @@ import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.store.demoqa.base.BasePage;
+import com.store.demoqa.base.LoadablePage;
 import org.openqa.selenium.NoSuchElementException;
 
 import static com.codeborne.selenide.Selectors.byCssSelector;
 import static com.codeborne.selenide.Selenide.$;
 import static org.junit.Assert.fail;
 
-public class ToolsQALoggedOutPage extends BasePage {
+public class ToolsQALoggedOutPage extends BasePage implements LoadablePage {
 
     private final SelenideElement userLogin = $(byCssSelector("#user_login")),
             userPassword = $(byCssSelector("#user_pass"));
@@ -28,6 +29,11 @@ public class ToolsQALoggedOutPage extends BasePage {
             fail("The required items on the page are not displayed");
             return false;
         }
+    }
+
+    @Override
+    public void load() {
+
     }
 
 }

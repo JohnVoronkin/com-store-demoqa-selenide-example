@@ -3,6 +3,7 @@ package com.store.demoqa.pages;
 import com.codeborne.selenide.SelenideElement;
 import com.codeborne.selenide.ex.ElementNotFound;
 import com.store.demoqa.base.BasePage;
+import com.store.demoqa.base.LoadablePage;
 import com.store.demoqa.model.User;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -26,24 +27,13 @@ import static org.openqa.selenium.By.xpath;
 /**
  * This page - Your Account Page
  */
-public class YourAccountPage extends BasePage {
+public class YourAccountPage extends BasePage implements LoadablePage {
 
     private final SelenideElement userName = $(byCssSelector("#log")),
             password = $(byCssSelector("#pwd")),
             login = $(byCssSelector("#login")),
             menuOnlineStore = $(byXpath("//li[@id='wp-admin-bar-site-name' and @class='menupop']")),
             logout = $(byCssSelector("#wp-admin-bar-logout > a"));
-
-    /**
-     * Переходим на стр. авторизации в магазин
-     *
-     * @return YourAccountPage
-     */
-    public YourAccountPage goToYourAccountPage() {
-        open(YOUR_ACCOUNT_PAGE.getMenuURL());
-        assertThat("Проверяем загрузку стр. авторизации", isPageLoaded());
-        return new YourAccountPage();
-    }
 
     /**
      * Авторизация в систему
@@ -105,6 +95,12 @@ public class YourAccountPage extends BasePage {
             fail("The required items on the page are not displayed");
             return false;
         }
+    }
+
+    @Override
+    public void load() {
+        open(YOUR_ACCOUNT_PAGE.getMenuURL());
+        assertThat("Проверяем загрузку стр. авторизации", isPageLoaded());
     }
 
 }

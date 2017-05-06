@@ -5,14 +5,13 @@ import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.EdgeDriverManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
-import org.testng.annotations.BeforeClass;
+import org.junit.jupiter.api.BeforeAll;
 
 import static com.codeborne.selenide.Configuration.baseUrl;
-import static com.store.demoqa.utils.PropertiesReader.loadProperty;
 
 public abstract class BaseTest {
 
-    @BeforeClass
+    @BeforeAll
     public static void beforeTestRunSetup() throws Exception {
         setDriverByName("chrome");
         baseUrl = "http://store.demoqa.com";

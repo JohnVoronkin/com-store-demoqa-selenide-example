@@ -7,16 +7,39 @@ buildscript {
         mavenCentral()
     }
     dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4'
     }
+}
+
+apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+junitPlatform {
+    // platformVersion '1.0.0-M4'
+    filters {
+        engines {
+            // include 'junit-jupiter', 'junit-vintage'
+            // exclude 'custom-engine'
+        }
+        tags {
+            // include 'fast'
+            exclude 'slow'
+        }
+        // includeClassNamePattern '.*Test'
+    }
+    // enableStandardTestTask true
+    // reportsDir file('build/test-results/junit-platform') // this is the default
+    logManager 'org.apache.logging.log4j.jul.LogManager'
 }
 
 repositories {
     mavenCentral()
 }
 
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
+ext.junitPlatformVersion = '1.0.0-M4'
+ext.junitJupiterVersion = '5.0.0-M4'
 
 jar {
     baseName = 'com-store-demoqa-selenide-example'
@@ -32,7 +55,7 @@ compileTestJava {
 
 dependencies {
     // http://ru.selenide.org/quick-start.html
-    compile 'com.codeborne:selenide:4.4.1'
+    compile 'com.codeborne:selenide:4.4.3'
     // https://github.com/bonigarcia/webdrivermanager
     compile 'io.github.bonigarcia:webdrivermanager:1.6.2'
     // https://mvnrepository.com/artifact/org.hamcrest/hamcrest-all
@@ -44,9 +67,14 @@ dependencies {
     // https://github.com/SergeyPirogov/video-recorder-java
     compile group: 'com.automation-remarks', name: 'video-recorder-junit', version: '1.+'
 
-    // https://mvnrepository.com/artifact/org.testng/testng
-    compile group: 'org.testng', name: 'testng', version: '6.11'
+    // JUnit Jupiter API and TestEngine implementation
+    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+    testCompile("org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}")
 
+
+    // https://projectlombok.org/download.html
+    compileOnly "org.projectlombok:lombok:1.16.16"
 }
 
 tasks.withType(JavaCompile) {
@@ -55,7 +83,6 @@ tasks.withType(JavaCompile) {
 
 tasks.withType(Test) {
     testTask ->
-        testTask.useTestNG()
         testTask.reports.html.enabled = false
         testTask.systemProperties(
                 'selenide.start.maximized': true,

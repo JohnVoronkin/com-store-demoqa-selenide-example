@@ -15,8 +15,6 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public abstract class BasePage {
 
-    public abstract boolean isPageLoaded();
-
     /**
      * Заполнение текстового поля
      *
